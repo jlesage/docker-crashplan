@@ -24,7 +24,9 @@ rm -f /config/log/engine_output.log \
       /config/log/ui_output.log \
       /config/log/ui_error.log
 
-# Adjust ownership of all files under /config.
+# Adjust ownership of /config.
 chown -R $USER_ID:$GROUP_ID /config
+# Adjust ownership of /backupArchives.
+chown -R $USER_ID:$GROUP_ID /backupArchives
 
 # vim: set ft=sh :
