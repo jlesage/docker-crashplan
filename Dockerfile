@@ -81,7 +81,8 @@ VOLUME ["/backupArchives"]
 
 # Expose ports.
 #   - 4242: Computer-to-computer connections.
-EXPOSE 4242
+#   - 4243: Connection to the CrashPlan service.
+EXPOSE 4242 4243
 
 # Metadata.
 LABEL \
