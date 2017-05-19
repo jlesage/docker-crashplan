@@ -15,12 +15,6 @@ then
   cp -pr $CRASHPLAN_DIR/conf.default /config/conf
 fi
 
-# Upgrade existing installation.
-if [ -f /config/id/.identity ] && [ ! -f /config/var/.identity ]
-then
-  cp /config/id/.identity /config/var/.identity
-fi
-
 # Install default run.conf if needed.
 [ -f /config/bin/run.conf ] || cp $CRASHPLAN_DIR/bin/run.conf.default /config/bin/run.conf
 
