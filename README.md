@@ -36,7 +36,7 @@ home directories and files appear under the `/storage` folder in the container.
 
 ## Usage
 ```
-docker run [-d|--rm] \
+docker run [-d] [--rm] \
     --name=crashplan \
     [-e <VARIABLE_NAME>=<VALUE>]... \
     [-v <HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]]... \
@@ -240,3 +240,15 @@ maximum amount of memory CrashPlan is allowed to use. This can be done by:
   2. Using the [solution provided by CrashPlan] from its support site.
 
 [solution provided by CrashPlan]: https://support.code42.com/CrashPlan/4/Troubleshooting/Adjusting_CrashPlan_Settings_For_Memory_Usage_With_Large_Backups
+
+### Connection Between Computers
+
+If you have connection issues between your computers, make sure to read the
+[Connection between computers] article from CrashPlan support site.
+
+When changing the inbound backup port from CrashPlan settings, don't forget to
+also add the proper port mapping when running the container.  For example, if
+the listening port is changed to `12345`, the option `-p 12345:12345` needs to
+be added to the `docker run` command.
+
+[Connections between computers]: https://support.code42.com/CrashPlan/4/Troubleshooting/Connections_between_computers
