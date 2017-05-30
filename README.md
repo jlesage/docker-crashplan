@@ -208,19 +208,19 @@ avoid re-uploading all your data.
 To proceed, make sure to carefully read the [official documentation].
 
 Here is a summary of what needs to be done:
-  1) Start CrashPlan Docker container.  Make sure the configuration directory
+  1. Start CrashPlan Docker container.  Make sure the configuration directory
      if not mapped to a folder used by a different CrashPlan container.
-  2) Sign in to your account.
-  3) Perform an adoption.  There is a gray banner asking you to do so.
-  4) Once done, you will probably see missing items in the file selection.  This
+  2. Sign in to your account.
+  3. Perform an adoption.  There is a gray banner asking you to do so.
+  4. Once done, you will probably see missing items in the file selection.  This
      is normal, since path to your files is different in the container.
-  5) Update the file selection by re-adding your files.  **Do not unselect
+  5. Update the file selection by re-adding your files.  **Do not unselect
      missing items yet**.
-  6) Perform a backup.  Because of deduplication, files will not be uploaded
+  6. Perform a backup.  Because of deduplication, files will not be uploaded
      again.
-  7) Once the backup is terminated, you can remove missing items **if you
+  7. Once the backup is terminated, you can remove missing items **if you
      don't care about file versions**.  Else, keep missing items.
-  8) If you are the destination for other computers, you have to adjust the
+  8. If you are the destination for other computers, you have to adjust the
      location of previous backup archives.  In the `Inbound` section, if some of
      your friends have the message `Backup disabled - backup location is not
      accessible`: click on the name, then update the location.  It should be
