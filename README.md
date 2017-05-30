@@ -94,8 +94,7 @@ container cannot be changed, but you are free to use any port on the host side.
 |------|-----------------|-------------|
 | 5800 | Mandatory       | Port used to access the application's GUI via the web interface. |
 | 5900 | Mandatory       | Port used to access the application's GUI via the VNC protocol.  |
-| 4242 | Optional        | Port used by CrashPlan for computer-to-computer backups.  No need to expose this port if this feature is not used. |
-| 4243 | Mandatory       | Port used to connect to the CrashPlan service. |
+| 4242 | Optional        | Port used by CrashPlan for computer-to-computer backups.  No need to expose this port if this feature is not used.  **NOTE**: Because this port is reported by CrashPlan to other devices signed to your account, the port mapped on the host side *must* be the same (i.e. 4242). |
 
 ## User/Group IDs
 
