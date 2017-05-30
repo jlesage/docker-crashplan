@@ -67,6 +67,7 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`VNC_PASSWORD`  | Password needed to connect to the application's GUI.  See the [VNC Pasword](#vnc-password) section for more details. | (unset) |
 |`KEEP_GUIAPP_RUNNING`| When set to `1`, the application will be automatically restarted if it crashes or if user quits it. | (unset) |
 |`APP_NICENESS`  | Priority at which the application should run.  A niceness value of −20 is the highest priority and 19 is the lowest priority.  By default, niceness is not set, meaning that the default niceness of 0 is used.  **NOTE**: A negative niceness (priority increase) requires additional permissions.  In this case, the container should be run with the docker option `--cap-add=SYS_NICE`. | (unset) |
+|`CRASHPLAN_SRV_MAX_MEM`| Maximum amount of memory the CrashPlan Engine is allowed to use. Format of the value is `<size>[g∣G∣m∣M∣k∣K]`.  By default, when this variable is not set, a maximum of 1024MB (`1024m`) of memory is allowed. | (unset) |
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
@@ -230,7 +231,13 @@ Here is a summary of what needs to be done:
 
 ## Troubleshooting
 
-If CrashPlan crashes unexpectedly with large backups, try to increase the
-maximum amount of memory CrashPlan is allowed to use. See:
+### Crashes
 
-https://support.code42.com/CrashPlan/4/Troubleshooting/Adjusting_CrashPlan_Settings_For_Memory_Usage_With_Large_Backups
+If CrashPlan crashes unexpectedly with large backups, try to increase the
+maximum amount of memory CrashPlan is allowed to use. This can be done by:
+
+  1. Setting the `CRASHPLAN_SRV_MAX_MEM` environment variable.  See the
+     [Environment Variables](#environment-variables) section for more details.
+  2. Using the [solution provided by CrashPlan] from its support site.
+
+[solution provided by CrashPlan]: https://support.code42.com/CrashPlan/4/Troubleshooting/Adjusting_CrashPlan_Settings_For_Memory_Usage_With_Large_Backups
