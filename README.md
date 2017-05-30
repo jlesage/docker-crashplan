@@ -148,6 +148,7 @@ explicitly the VNC port like this:
     http://<HOST IP ADDR>:5800/?port=<VNC PORT>
 
 ## VNC Password
+
 To restrict access to your application, a password can be specified.  This can
 be done via two methods:
   * By using the `VNC_PASSWORD` environment variable.
@@ -157,6 +158,75 @@ be done via two methods:
 
 **NOTE**: This is a very basic way to restrict access to the application and it
 should not be considered as secure in any way.
+
+## Networking
+
+By default, the container runs in bridge mode networking.  This is the best way
+to go, unless your CrashPlan container is the backup destination of other
+devices on your local network (LAN).
+
+In this network mode, a private IP address on an isolated subnet is assigned to
+containers.  For example, devices on your LAN may have IP addresses in the
+`192.168.1.x` subnet, while containers have IP addresses in the `172.17.x.x`
+range.  Thus, CrashPlan detects and reports a local/internal IP address in the
+`172.17.x.x` subnet, something that other devices on your LAN cannot reach.
+
+**NOTE**: The problem described here doesn't affect the scenario where your
+CrashPlan container is the backup destination of other devices located *outside*
+your LAN (i.e. over the Internet).  In this case, CrashPlan uses your public IP
+address, which is properly detected no matter the networking mode.
+
+The first solution to this issue is to add a static route on your router to
+allow other devices to reach your CrashPlan container.  The way to configure
+routes is different for each router, but here is the route information you will
+need:
+```
+Subnet IP address:  172.17.0.0
+Subnet mask:        255.255.0.0
+Subnet prefix size: /16
+Gateway:            IP address of your Docker host
+```
+
+The second solution is to run the container in host mode networking.  This mode
+effectively disables network isolation of a Docker container. The container
+shares the networking namespace of the host, meaning that it shares the same IP
+address and is directly exposed to your LAN.  Consequently, port mappings are
+note used/needed.  Note that this mode increases chances to conflict with other
+containers or services running on the host.  To enable the host mode networking,
+run the container with the `--net=host` parameter.
+
+For more information, see the [Docker container networking] documentation.
+
+[Docker container networking]: https://docs.docker.com/engine/userguide/networking/
+
+## Taking Over Existing Backup
+
+If this container is replacing a CrashPlan installation (from Linux, Windows,
+MAC or another Docker container), your existing backup can be taken over to
+avoid re-uploading all your data.
+
+To proceed, make sure to carefully read the [official documentation].
+
+Here is a summary of what needs to be done:
+  1- Start CrashPlan Docker container.  Make sure the configuration directory
+     if not mapped to a folder used by a different CrashPlan container.
+  2- Sign in to your account.
+  3- Perform an adoption.  There is a gray banner asking you to do so.
+  4- Once done, you will probably see missing items in the file selection.  This
+     is normal, since path to your files is different in the container.
+  5- Update the file selection by re-adding your files.  **Do not unselect
+     missing items yet**.
+  6- Perform a backup.  Because of deduplication, files will not be uploaded
+     again.
+  7- Once the backup is terminated, you can remove missing items **if you
+     don't care about file versions**.  Else, keep missing items.
+  8- If you are the destination for other computers, you have to adjust the
+     location of previous backup archives.  In the `Inbound` section, if some of
+     your friends have the message `Backup disabled - backup location is not
+     accessible`: click on the name, then update the location.  It should be
+     under `/backupArchives/<Computer ID>`.
+
+[offical documentation]: https://support.code42.com/CrashPlan/4/Configuring/Replacing_Your_Device
 
 ## Troubleshooting
 
