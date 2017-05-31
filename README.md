@@ -7,7 +7,7 @@ on client side) or via any VNC client.
 
 ---
 
-<a href="https://www.crashplan.com"><img src="https://github.com/jlesage/docker-templates/raw/master/jlesage/images/crashplan-logo.png" alt="CrashPlan logo" width="60%" ></a>
+[![CrashPlan logo](https://rsz.io/github.com/jlesage/docker-templates/raw/master/jlesage/images/crashplan-logo.png?width=60%)](https://www.crashplan.com)
 
 CrashPlan makes it easy to protect your digital life, so you can get back to
 what’s important in real life.  Only CrashPlan offers totally free local and
