@@ -226,7 +226,7 @@ Here is a summary of what needs to be done:
      accessible`: click on the name, then update the location.  It should be
      under `/backupArchives/<Computer ID>`.
 
-[offical documentation]: https://support.code42.com/CrashPlan/4/Configuring/Replacing_Your_Device
+[official documentation]: https://support.code42.com/CrashPlan/4/Configuring/Replacing_Your_Device
 
 ## Troubleshooting
 
