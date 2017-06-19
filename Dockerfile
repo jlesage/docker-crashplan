@@ -8,7 +8,7 @@
 FROM jlesage/baseimage-gui:alpine-3.5-glibc-v1.3.2
 
 # Define software versions.
-ARG CRASHPLAN_VERSION=4.8.2
+ARG CRASHPLAN_VERSION=4.8.3
 ARG CRASHPLAN_JRE_VERSION=1.8.0_72
 
 # Define software download URLs.
