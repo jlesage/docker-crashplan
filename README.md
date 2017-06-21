@@ -1,13 +1,14 @@
 # Docker container for CrashPlan
 [![Docker Automated build](https://img.shields.io/docker/automated/jlesage/crashplan.svg)](https://hub.docker.com/r/jlesage/crashplan/) [![](https://images.microbadger.com/badges/image/jlesage/crashplan.svg)](http://microbadger.com/#/images/jlesage/crashplan "Get your own image badge on microbadger.com") [![Build Status](https://travis-ci.org/jlesage/docker-crashplan.svg?branch=master)](https://travis-ci.org/jlesage/docker-crashplan)
 
-This is a Docker container for CrashPlan.  The GUI of the application is
-accessed through a modern web browser (no installation or configuration needed
-on client side) or via any VNC client.
+This is a Docker container for CrashPlan.
+
+The GUI of the application is accessed through a modern web browser (no installation or configuration needed on client side) or via any VNC client.
 
 ---
 
-[![CrashPlan logo](https://rsz.io/github.com/jlesage/docker-templates/raw/master/jlesage/images/crashplan-logo.png?width=60%)](https://www.crashplan.com)
+[![CrashPlan logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/crashplan-icon.png&w=200)](https://www.crashplan.com)
+[![CrashPlan](https://dummyimage.com/400x110/ffffff/575757&text=CrashPlan)](https://www.crashplan.com)
 
 CrashPlan makes it easy to protect your digital life, so you can get back to
 what’s important in real life.  Only CrashPlan offers totally free local and
@@ -18,23 +19,27 @@ get all three, from the same easy application.
 ---
 
 ## Quick Start
-First create the configuration directory for CrashPlan.  In this example,
-`/docker/appdata/crashplan` is used.  To backup files located under your home
-directory, launch the CrashPlan docker container with the following command:
+
+Launch the CrashPlan docker container with the following command:
 ```
 docker run -d --rm \
     --name=crashplan \
     -p 5800:5800 \
     -p 5900:5900 \
-    -v /var/docker/crashplan:/config \
+    -v /docker/appdata/crashplan:/config:rw \
     -v $HOME:/storage:ro \
     jlesage/crashplan
 ```
 
-Browse to `http://your-host-ip:5800` to access the CrashPlan Backup GUI.  Your
-home directories and files appear under the `/storage` folder in the container.
+Where:
+  - `/docker/appdata/crashplan`: This is where the application stores its configuration, log and any files needing persistency.
+  - `$HOME`: This location contains files from your host that need to be accessible by the application.
+
+Browse to `http://your-host-ip:5800` to access the CrashPlan GUI.  Files from
+the host appear under the `/storage` folder in the container.
 
 ## Usage
+
 ```
 docker run [-d] [--rm] \
     --name=crashplan \
@@ -59,17 +64,15 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 
 | Variable       | Description                                  | Default |
 |----------------|----------------------------------------------|---------|
-|`USER_ID`       | ID of the user the application runs as.  See [User/Group IDs](#usergroup-ids) to better understand when this should be set. | 1000    |
-|`GROUP_ID`      | ID of the group the application runs as.  See [User/Group IDs](#usergroup-ids) to better understand when this should be set. | 1000    |
-|`TZ`            | [TimeZone] of the container.  Timezone can also be set by mapping `/etc/localtime` between the host and the container. | Etc/UTC |
-|`DISPLAY_WIDTH` | Width (in pixels) of the display.             | 1280    |
-|`DISPLAY_HEIGHT`| Height (in pixels) of the display.            | 768     |
-|`VNC_PASSWORD`  | Password needed to connect to the application's GUI.  See the [VNC Pasword](#vnc-password) section for more details. | (unset) |
-|`KEEP_GUIAPP_RUNNING`| When set to `1`, the application will be automatically restarted if it crashes or if user quits it. | (unset) |
-|`APP_NICENESS`  | Priority at which the application should run.  A niceness value of −20 is the highest priority and 19 is the lowest priority.  By default, niceness is not set, meaning that the default niceness of 0 is used.  **NOTE**: A negative niceness (priority increase) requires additional permissions.  In this case, the container should be run with the docker option `--cap-add=SYS_NICE`. | (unset) |
-|`CRASHPLAN_SRV_MAX_MEM`| Maximum amount of memory the CrashPlan Engine is allowed to use. Format of the value is `<size>[g∣G∣m∣M∣k∣K]`.  By default, when this variable is not set, a maximum of 1024MB (`1024m`) of memory is allowed. | (unset) |
-
-[TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+|`USER_ID`| ID of the user the application runs as.  See [User/Group IDs](#usergroup-ids) to better understand when this should be set. | `1000` |
+|`GROUP_ID`| ID of the group the application runs as.  See [User/Group IDs](#usergroup-ids) to better understand when this should be set. | `1000` |
+|`TZ`| [TimeZone] of the container.  Timezone can also be set by mapping `/etc/localtime` between the host and the container. | `Etc/UTC` |
+|`DISPLAY_WIDTH`| Width (in pixels) of the application's window. | `1280` |
+|`DISPLAY_HEIGHT`| Height (in pixels) of the application's window. | `768` |
+|`VNC_PASSWORD`| Password needed to connect to the application's GUI.  See the [VNC Pasword](#vnc-password) section for more details. | (unset) |
+|`KEEP_GUIAPP_RUNNING`| When set to `1`, the application will be automatically restarted if it crashes or if user quits it. | `0` |
+|`APP_NICENESS`| Priority at which the application should run.  A niceness value of -20 is the highest priority and 19 is the lowest priority.  By default, niceness is not set, meaning that the default niceness of 0 is used.  **NOTE**: A negative niceness (priority increase) requires additional permissions.  In this case, the container should be run with the docker option `--cap-add=SYS_NICE`. | (unset) |
+|`CRASHPLAN_SRV_MAX_MEM`| Maximum amount of memory the CrashPlan Engine is allowed to use. One of the following memory unit (case insensitive) should be added as a suffix to the size: `G`, `M` or `K`.  By default, when this variable is not set, a maximum of 1024MB (`1024M`) of memory is allowed. | (unset) |
 
 ### Data Volumes
 
@@ -79,9 +82,9 @@ format: `<HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]`.
 
 | Container path  | Permissions | Description |
 |-----------------|-------------|-------------|
-|`/config`        | rw          | This is where the application stores its configuration, log and any files needing persistency. |
-|`/storage`       | ro          | This is where files that need to be backup are located. |
-|`/backupArchives`| rw          | This is where inbound backups are stored. |
+|`/config`| rw | This is where the application stores its configuration, log and any files needing persistency. |
+|`/storage`| ro | This location contains files from your host that need to be accessible by the application. |
+|`/backupArchives`| rw | This is where inbound backups are stored. |
 
 ### Ports
 
@@ -92,9 +95,9 @@ container cannot be changed, but you are free to use any port on the host side.
 
 | Port | Mapping to host | Description |
 |------|-----------------|-------------|
-| 5800 | Mandatory       | Port used to access the application's GUI via the web interface. |
-| 5900 | Mandatory       | Port used to access the application's GUI via the VNC protocol.  |
-| 4242 | Optional        | Port used by CrashPlan for computer-to-computer backups.  No need to expose this port if this feature is not used.  **NOTE**: Because this port is reported by CrashPlan to other devices signed to your account, the port mapped on the host side *must* be the same (i.e. 4242). |
+| 5800 | Mandatory | Port used to access the application's GUI via the web interface. |
+| 5900 | Mandatory | Port used to access the application's GUI via the VNC protocol. |
+| 4242 | Optional | Port used by CrashPlan for computer-to-computer backups.  No need to expose this port if this feature is not used.  **NOTE**: Because this port is reported by CrashPlan to other devices signed to your account, the port mapped on the host side *must* be the same (i.e. 4242). |
 
 ## User/Group IDs
 
@@ -197,8 +200,6 @@ run the container with the `--net=host` parameter.
 
 For more information, see the [Docker container networking] documentation.
 
-[Docker container networking]: https://docs.docker.com/engine/userguide/networking/
-
 ## Taking Over Existing Backup
 
 If this container is replacing a CrashPlan installation (from Linux, Windows,
@@ -226,8 +227,6 @@ Here is a summary of what needs to be done:
      accessible`: click on the name, then update the location.  It should be
      under `/backupArchives/<Computer ID>`.
 
-[official documentation]: https://support.code42.com/CrashPlan/4/Configuring/Replacing_Your_Device
-
 ## Troubleshooting
 
 ### Crashes
@@ -239,8 +238,6 @@ maximum amount of memory CrashPlan is allowed to use. This can be done by:
      [Environment Variables](#environment-variables) section for more details.
   2. Using the [solution provided by CrashPlan] from its support site.
 
-[solution provided by CrashPlan]: https://support.code42.com/CrashPlan/4/Troubleshooting/Adjusting_CrashPlan_Settings_For_Memory_Usage_With_Large_Backups
-
 ### Connection Between Computers
 
 If you have connection issues between your computers, make sure to read the
@@ -251,4 +248,8 @@ also add the proper port mapping when running the container.  For example, if
 the listening port is changed to `12345`, the option `-p 12345:12345` needs to
 be added to the `docker run` command.
 
+[TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+[Docker container networking]: https://docs.docker.com/engine/userguide/networking/
+[official documentation]: https://support.code42.com/CrashPlan/4/Configuring/Replacing_Your_Device
+[solution provided by CrashPlan]: https://support.code42.com/CrashPlan/4/Troubleshooting/Adjusting_CrashPlan_Settings_For_Memory_Usage_With_Large_Backups
 [Connections between computers]: https://support.code42.com/CrashPlan/4/Troubleshooting/Connections_between_computers
