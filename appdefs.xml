@@ -1,0 +1,227 @@
+<!--
+Definitions for CrashPlan docker container.
+
+This file is used as data source to generate README.md and unRAID template files
+from Jinja2 templates.
+-->
+<app>
+    <id>4</id>
+    <friendly_name>CrashPlan</friendly_name>
+    <name>{{ app.friendly_name|lower|replace(' ', '-') }}</name>
+    <project>
+      <description>
+CrashPlan makes it easy to protect your digital life, so you can get back to
+what’s important in real life.  Only CrashPlan offers totally free local and
+offsite backup. A subscription to the cloud backup service gets you continuous
+backup, mobile file access and lots more. For the ultimate in computer backup,
+get all three, from the same easy application.
+      </description>
+      <url>https://www.crashplan.com</url>
+    </project>
+    <unraid>
+      <support_url>https://forums.lime-technology.com/topic/57756-support-crashplan/</support_url>
+      <category>Backup:</category>
+      <extra_description>
+    [span style='color: red;'][b]Warning:[/b][/span] Make sure to read the
+    [i]Taking Over Existing Backup[/i] section from the documentation if you are
+    installing this container to replace another CrashPlan installation (from
+    Windows, Linux, Mac or even another Docker container).
+      </extra_description>
+    </unraid>
+    <container>
+      <rough_download_size>160MB</rough_download_size>
+      <storage_permissions>ro</storage_permissions>
+      <!-- Environment variables -->
+      <environment_variable>
+        <name>CRASHPLAN_SRV_MAX_MEM</name>
+        <description>Maximum amount of memory the CrashPlan Engine is allowed to use. One of the following memory unit (case insensitive) should be added as a suffix to the size: `G`, `M` or `K`.  By default, when this variable is not set, a maximum of 1024MB (`1024M`) of memory is allowed.</description>
+        <unraid_template>
+          <title>Maximum Memory</title>
+          <description>Maximum amount of memory the CrashPlan Engine is allowed to use.  One of the following memory unit (case insensitive) should be added as a suffix to the size: [b][i]G[/i][/b], [b][i]M[/i][/b] or [b][i]K[/i][/b]. By default, when this variable is not set, a maximum of 1024MB ([b][i]1024M[/i][/b]) of memory is allowed.</description>
+          <display>advanced</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <!-- Volumes -->
+      <volume>
+        <container_path>/flash</container_path>
+        <host_path_example/>
+        <description/>
+        <permissions>ro</permissions>
+        <unraid_template>
+          <title>Flash</title>
+          <description>This is where data on your unRAID flash device is located.  Useful to backup your unRAID configuration.[br]Container path: /flash</description>
+          <default>/boot</default>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </volume>
+      <volume>
+        <container_path>/backupArchives</container_path>
+        <host_path_example/>
+        <description>This is where inbound backups are stored.</description>
+        <permissions>rw</permissions>
+        <unraid_template>
+          <title>Inbound Backup Directory</title>
+          <description>This is where inboud backup archives are stored.[br]Container path: /backupArchives[br][b]NOTE:[/b] This volume mapping is not needed if computer-to-computer backup feature is not used.</description>
+          <default>/mnt/user/crashplanBackupArchives</default>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </volume>
+      <!-- Network ports -->
+      <port>
+        <number>4242</number>
+        <protocol>tcp</protocol>
+        <description>Port used by CrashPlan for computer-to-computer backups.  No need to expose this port if this feature is not used.  **NOTE**: Because this port is reported by CrashPlan to other devices signed to your account, the port mapped on the host side *must* be the same (i.e. 4242).</description>
+        <mandatory>false</mandatory>
+        <unraid_template>
+          <title>WEB Port for GUI</title>
+          <description>Port used for computer-to-computer backup.[br][b]NOTE:[/b] To receive backups from remote computers over the internet, make sure to properly configure port-forwarding on your router.[br][b]NOTE:[/b] This port mapping is not needed if computer-to-computer backup feature is not used.</description>
+          <default>4242</default>
+          <display>advanced</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </port>
+      <!-- Devices -->
+    </container>
+    <!-- Extra stuff to be added to the documentation. -->
+    <documentation>
+      <section>
+        <title level="2">Networking</title>
+        <content>
+By default, the container runs in bridge mode networking.  This is the best way
+to go, unless your CrashPlan container is the backup destination of other
+devices on your local network (LAN).
+
+In this network mode, a private IP address on an isolated subnet is assigned to
+containers.  For example, devices on your LAN may have IP addresses in the
+`192.168.1.x` subnet, while containers have IP addresses in the `172.17.x.x`
+range.  Thus, CrashPlan detects and reports a local/internal IP address in the
+`172.17.x.x` subnet, something that other devices on your LAN cannot reach.
+
+**NOTE**: The problem described here doesn't affect the scenario where your
+CrashPlan container is the backup destination of other devices located *outside*
+your LAN (i.e. over the Internet).  In this case, CrashPlan uses your public IP
+address, which is properly detected no matter the networking mode.
+
+The first solution to this issue is to add a static route on your router to
+allow other devices to reach your CrashPlan container.  The way to configure
+routes is different for each router, but here is the route information you will
+need:
+```
+Subnet IP address:  172.17.0.0
+Subnet mask:        255.255.0.0
+Subnet prefix size: /16
+Gateway:            IP address of your Docker host
+```
+
+The second solution is to run the container in host mode networking.  This mode
+effectively disables network isolation of a Docker container. The container
+shares the networking namespace of the host, meaning that it shares the same IP
+address and is directly exposed to your LAN.  Consequently, port mappings are
+note used/needed.  Note that this mode increases chances to conflict with other
+containers or services running on the host.  To enable the host mode networking,
+run the container with the `--net=host` parameter.
+
+For more information, see the [Docker container networking] documentation.
+        </content>
+      </section>
+      <section>
+        <title level="2">Taking Over Existing Backup</title>
+        <content>
+If this container is replacing a CrashPlan installation (from Linux, Windows,
+MAC or another Docker container), your existing backup can be taken over to
+avoid re-uploading all your data.
+
+To proceed, make sure to carefully read the [official documentation].
+
+Here is a summary of what needs to be done:
+  1. Start CrashPlan Docker container.  Make sure the configuration directory
+     if not mapped to a folder used by a different CrashPlan container.
+  2. Sign in to your account.
+  3. Perform an adoption.  There is a gray banner asking you to do so.
+  4. Once done, you will probably see missing items in the file selection.  This
+     is normal, since path to your files is different in the container.
+  5. Update the file selection by re-adding your files.  **Do not unselect
+     missing items yet**.
+  6. Perform a backup.  Because of deduplication, files will not be uploaded
+     again.
+  7. Once the backup is terminated, you can remove missing items **if you
+     don't care about file versions**.  Else, keep missing items.
+  8. If you are the destination for other computers, you have to adjust the
+     location of previous backup archives.  In the `Inbound` section, if some of
+     your friends have the message `Backup disabled - backup location is not
+     accessible`: click on the name, then update the location.  It should be
+     under `/backupArchives/&lt;Computer ID&gt;`.
+        </content>
+      </section>
+      <section>
+        <title level="2">Troubleshooting</title>
+        <content/>
+      </section>
+      <section>
+        <title level="3">Crashes</title>
+        <content>
+If CrashPlan crashes unexpectedly with large backups, try to increase the
+maximum amount of memory CrashPlan is allowed to use. This can be done by:
+
+  1. Setting the `CRASHPLAN_SRV_MAX_MEM` environment variable.  See the
+     [Environment Variables](#environment-variables) section for more details.
+  2. Using the [solution provided by CrashPlan] from its support site.
+        </content>
+      </section>
+      <section>
+        <title level="3">Connection Between Computers</title>
+        <content>
+If you have connection issues between your computers, make sure to read the
+[Connection between computers] article from CrashPlan support site.
+
+When changing the inbound backup port from CrashPlan settings, don't forget to
+also add the proper port mapping when running the container.  For example, if
+the listening port is changed to `12345`, the option `-p 12345:12345` needs to
+be added to the `docker run` command.
+        </content>
+      </section>
+      <link>
+        <name>Docker container networking</name>
+        <url>https://docs.docker.com/engine/userguide/networking/</url>
+      </link>
+      <link>
+        <name>official documentation</name>
+        <url>https://support.code42.com/CrashPlan/4/Configuring/Replacing_Your_Device</url>
+      </link>
+      <link>
+        <name>solution provided by CrashPlan</name>
+        <url>https://support.code42.com/CrashPlan/4/Troubleshooting/Adjusting_CrashPlan_Settings_For_Memory_Usage_With_Large_Backups</url>
+      </link>
+      <link>
+        <name>Connections between computers</name>
+        <url>https://support.code42.com/CrashPlan/4/Troubleshooting/Connections_between_computers</url>
+      </link>
+    </documentation>
+    <!-- Changelog of the application. -->
+    <history>
+      <release>
+        <version>1.0.2</version>
+        <date>2017-06-19</date>
+        <change>Upgraded CrashPlan to version 4.8.3.</change>
+      </release>
+      <release>
+        <version>1.0.1</version>
+        <date>2017-05-30</date>
+        <change>Now using baseimage v1.3.2, which brings the following changes:</change>
+        <change level="2">Fixed password modal window not showing up when required.</change>
+        <change>Maximum amount of memory used by the CrashPlan Engine can now be set via the CRASHPLAN_SRV_MAX_MEM environment variable.</change>
+      </release>
+      <release>
+        <version>1.0.0</version>
+        <date>2017-05-29</date>
+        <change>Initial release.</change>
+      </release>
+    </history>
+</app>
