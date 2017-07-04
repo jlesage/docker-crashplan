@@ -57,8 +57,11 @@ RUN \
     rm -rf /tmp/*
 
 # Install dependencies.
-RUN apk --no-cache add \
-        gtk+2.0
+RUN \
+    sed -i -e 's/dl-cdn/dl-4/g' /etc/apk/repositories && \
+    apk --no-cache add \
+        gtk+2.0 \
+        bc
 
 # Generate and install favicons.
 RUN \

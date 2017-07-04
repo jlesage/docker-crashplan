@@ -72,6 +72,20 @@ get all three, from the same easy application.
           <mask>false</mask>
         </unraid_template>
       </volume>
+      <volume>
+        <container_path>/usr/local/emhttp/webGui</container_path>
+        <host_path_example/>
+        <description/>
+        <permissions>ro</permissions>
+        <unraid_template>
+          <title>unRAID Notification</title>
+          <description>This is where the unRAID notification system is located.  This allows the container to generate unRAID notifications about common CrashPlan issues.[br]Container path: /usr/local/emhttp/webGui</description>
+          <default>/usr/local/emhttp/webGui</default>
+          <display>advanced</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </volume>
       <!-- Network ports -->
       <port>
         <number>4242</number>
