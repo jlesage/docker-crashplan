@@ -221,6 +221,18 @@ be added to the `docker run` command.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.2.0</version>
+        <date>2017-07-05</date>
+        <change>Report common CrashPlan issues/problems.  When one is detected:</change>
+        <change level="2">A message is sent to the main container's log.</change>
+        <change level="2">A notification is sent via the unRAID's notification system (if supported).</change>
+        <change>Now using baseimage v1.5.0, which brings the following changes:</change>
+        <change level="2">Added the UMASK environment variable to control how file permissions are set for newly created files.</change>
+        <change level="2">Added the X11VNC_EXTRA_OPTS environment variable used to pass additional arguments to the x11vnc server.</change>
+        <change level="2">By default, activate auto-scaling of application's window.</change>
+        <change level="2">Applied latest Alpine Linux security updates.</change>
+      </release>
+      <release>
         <version>1.1.1</version>
         <date>2017-06-22</date>
         <change>Now using baseimage v1.4.3, which brings the following changes:</change>
