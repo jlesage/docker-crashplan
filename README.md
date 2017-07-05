@@ -230,7 +230,7 @@ Here is a summary of what needs to be done:
 
 ## Troubleshooting
 
-### Crashes
+### Crashes / Maximum Amount of Allocated Memory
 
 If CrashPlan crashes unexpectedly with large backups, try to increase the
 maximum amount of memory CrashPlan is allowed to use. This can be done by:
@@ -238,6 +238,14 @@ maximum amount of memory CrashPlan is allowed to use. This can be done by:
   1. Setting the `CRASHPLAN_SRV_MAX_MEM` environment variable.  See the
      [Environment Variables](#environment-variables) section for more details.
   2. Using the [solution provided by CrashPlan] from its support site.
+
+### Inotify's Watch Limit
+
+If CrashPlan exceeds inotify's max watch limit, real-time file watching cannot
+work properly and the inotify watch limit needs to be increased on the **host**.
+
+For more details, see the CrashPlan's [Linux real-time file watching errors]
+article.
 
 ### Connection Between Computers
 
@@ -254,3 +262,4 @@ be added to the `docker run` command.
 [official documentation]: https://support.code42.com/CrashPlan/4/Configuring/Replacing_Your_Device
 [solution provided by CrashPlan]: https://support.code42.com/CrashPlan/4/Troubleshooting/Adjusting_CrashPlan_Settings_For_Memory_Usage_With_Large_Backups
 [Connections between computers]: https://support.code42.com/CrashPlan/4/Troubleshooting/Connections_between_computers
+[Linux real-time file watching errors]: https://support.code42.com/CrashPlan/4/Troubleshooting/Linux_real-time_file_watching_errors
