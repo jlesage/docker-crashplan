@@ -5,7 +5,7 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.6-glibc-v1.5.0
+FROM jlesage/baseimage-gui:alpine-3.6-glibc-v2.0.0
 
 # Define software versions.
 ARG CRASHPLAN_VERSION=4.8.3
@@ -24,7 +24,7 @@ WORKDIR /tmp
 
 # Install CrashPlan.
 RUN \
-    apk --no-cache add --virtual build-dependencies cpio curl && \
+    add-pkg --virtual build-dependencies cpio curl && \
     # Download CrashPlan.
     echo "Downloading CrashPlan..." && \
     curl -# -L ${CRASHPLAN_URL} | tar -xz && \
@@ -35,7 +35,7 @@ RUN \
     # Keep a copy of the default config.
     mv ${TARGETDIR}/conf ${TARGETDIR}/conf.default && \
     # Set the manifest path (directory for inbound backups).
-    sed -i "s|<backupConfig>|<backupConfig>\n\t\t\t<manifestPath>${MANIFESTDIR}</manifestPath>|g" ${TARGETDIR}/conf.default/default.service.xml && \
+    sed-patch "s|<backupConfig>|<backupConfig>\n\t\t\t<manifestPath>${MANIFESTDIR}</manifestPath>|g" ${TARGETDIR}/conf.default/default.service.xml && \
     # The configuration directory should be stored outside the container.
     ln -s /config/conf $TARGETDIR/conf && \
     # The run.conf file should be stored outside the container.
@@ -53,20 +53,19 @@ RUN \
     curl -# -L ${CRASHPLAN_JRE_URL} | tar -xz -C ${TARGETDIR} && \
     chown -R root:root ${TARGETDIR}/jre && \
     # Cleanup
-    apk --no-cache del build-dependencies && \
+    del-pkg build-dependencies && \
     rm -rf /tmp/*
 
 # Install dependencies.
 RUN \
-    sed -i -e 's/dl-cdn/dl-4/g' /etc/apk/repositories && \
-    apk --no-cache add \
+    add-pkg \
         gtk+2.0 \
         bc
 
 # Generate and install favicons.
 RUN \
     APP_ICON_URL=https://github.com/jlesage/docker-templates/raw/master/jlesage/images/crashplan-icon.png && \
-    /opt/install_app_icon.sh "$APP_ICON_URL"
+    install_app_icon.sh "$APP_ICON_URL"
 
 # Add files.
 COPY rootfs/ /
