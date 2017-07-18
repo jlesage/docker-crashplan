@@ -60,7 +60,8 @@ RUN \
 RUN \
     add-pkg \
         gtk+2.0 \
-        bc
+        bc \
+        curl
 
 # Generate and install favicons.
 RUN \

@@ -50,27 +50,53 @@ notify_unraid() {
     TITLE="$2"
     MSG="$3"
     LEVEL="$4"
-    UNRAID_NOTIFY="/usr/local/emhttp/webGui/scripts/notify"
 
-    if [ -f "$UNRAID_NOTIFY" ]; then
-        # Notify once.
-        [ ! -f "$STATE_DIR/$PROBLEM_ID.unraid" ] || return
+    # Return now if not running on unRAID.
+    [ "${HOST_OS:-UNSET}" = "unRAID" ] || return
 
-        # Convert to unRAID level.
-        case "$LEVEL" in
-            NORMAL)  LEVEL=normal;;
-            WARNING) LEVEL=warning;;
-            ERROR)   LEVEL=alert;;
-            *)
-                log "ERROR: notify_unraid: Unknown level '$LEVEL'"
-                return
-                ;;
-        esac
+    # Return now if required files are missing (volume not mapped).
+    [ -f /usr/local/emhttp/state/var.ini ] || return
+    [ -f /usr/local/emhttp/state/network.ini ] || return
 
-        # Notify.
-        "$UNRAID_NOTIFY" -e "$APP_NAME Docker Application" -s "$TITLE" -d "$MSG" -i "$LEVEL" add
-        touch "$STATE_DIR/$PROBLEM_ID.unraid"
+    # Notify once.
+    [ ! -f "$STATE_DIR/$PROBLEM_ID.unraid" ] || return
+
+    # Fetch required information.
+    CSRF_TOKEN="$(cat /usr/local/emhttp/state/var.ini | grep "csrf_token=" | tr -d '"')"
+    IP_ADDR="$(cat /usr/local/emhttp/state/network.ini | grep "IPADDR:0=" | cut -d'=' -f2 | tr -d '"')"
+    PORT="$(cat /usr/local/emhttp/state/var.ini | grep "emhttpPort=" | cut -d"=" -f2 | tr -d '"')"
+
+    # Valided fetched information.
+    if [ "${CSRF_TOKEN:-UNSET}" = "UNSET" ]; then
+        log "notify_unraid: Failed to fetch the csrf token."
+    elif [ "${IP_ADDR:-UNSET}" = "UNSET" ]; then
+        log "notify_unraid: Failed to fetch the IP address."
     fi
+
+    # Convert to unRAID level.
+    case "$LEVEL" in
+        NORMAL)  LEVEL=normal;;
+        WARNING) LEVEL=warning;;
+        ERROR)   LEVEL=alert;;
+        *)
+            log "ERROR: notify_unraid: Unknown level '$LEVEL'"
+            return
+            ;;
+    esac
+
+    # Notify.
+    set +e
+    curl --fail --silent \
+         -d "cmd=add" \
+         -d "e=$APP_NAME Docker Application" \
+         -d "s=$TITLE" \
+         -d "i=$LEVEL" \
+         -d "d=$MSG" \
+         -d "$CSRF_TOKEN" "http://$IP_ADDR:${PORT:-80}/webGui/include/Notify.php"
+    CURL_RC="$?"
+    set -e
+    [ "$CURL_RC" -eq 0 ] || log "notify_unraid: Failed to send notification."
+    touch "$STATE_DIR/$PROBLEM_ID.unraid"
 }
 
 notify() {
