@@ -55,16 +55,16 @@ notify_unraid() {
     [ "${HOST_OS:-UNSET}" = "unRAID" ] || return
 
     # Return now if required files are missing (volume not mapped).
-    [ -f /usr/local/emhttp/state/var.ini ] || return
-    [ -f /usr/local/emhttp/state/network.ini ] || return
+    [ -f /var/local/emhttp/var.ini ] || return
+    [ -f /var/local/emhttp/network.ini ] || return
 
     # Notify once.
     [ ! -f "$STATE_DIR/$PROBLEM_ID.unraid" ] || return
 
     # Fetch required information.
-    CSRF_TOKEN="$(cat /usr/local/emhttp/state/var.ini | grep "csrf_token=" | tr -d '"')"
-    IP_ADDR="$(cat /usr/local/emhttp/state/network.ini | grep "IPADDR:0=" | cut -d'=' -f2 | tr -d '"')"
-    PORT="$(cat /usr/local/emhttp/state/var.ini | grep "emhttpPort=" | cut -d"=" -f2 | tr -d '"')"
+    CSRF_TOKEN="$(cat /var/local/emhttp/var.ini | grep "csrf_token=" | tr -d '"')"
+    IP_ADDR="$(cat /var/local/emhttp/network.ini | grep "IPADDR:0=" | cut -d'=' -f2 | tr -d '"')"
+    PORT="$(cat /var/local/emhttp/var.ini | grep "emhttpPort=" | cut -d"=" -f2 | tr -d '"')"
 
     # Valided fetched information.
     if [ "${CSRF_TOKEN:-UNSET}" = "UNSET" ]; then

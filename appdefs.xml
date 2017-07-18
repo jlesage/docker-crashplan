@@ -280,9 +280,9 @@ be added to the `docker run` command.
         <description/>
         <permissions>ro</permissions>
         <unraid_template>
-          <title>unRAID Notification</title>
-          <description>This is where files needed to use the unRAID notification system are located.  This allows the container to generate unRAID notifications about common CrashPlan issues.[br]Container path: /usr/local/emhttp/webGui</description>
-          <default>/usr/local/emhttp/webGui</default>
+          <title>unRAID States</title>
+          <description>This is where unRAID state files are located.  This is used by the container to generate unRAID notifications about common CrashPlan issues.[br]Container path: /var/local/emhttp</description>
+          <default>/var/local/emhttp</default>
           <display>advanced</display>
           <required>false</required>
           <mask>false</mask>
