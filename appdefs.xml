@@ -275,7 +275,7 @@ be added to the `docker run` command.
         </unraid_template>
       </volume>
       <volume>
-        <container_path>/usr/local/emhttp/webGui</container_path>
+        <container_path>/var/local/emhttp</container_path>
         <host_path_example/>
         <description/>
         <permissions>ro</permissions>
