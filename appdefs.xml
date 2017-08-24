@@ -36,6 +36,14 @@ get all three, from the same easy application.
     </container>
     <!-- Extra stuff to be added to the documentation. -->
     <documentation>
+      <important>
+> **_IMPORTANT_**: *CrashPlan for Home*, the version implemented by this
+> container, is [being decommissioned].  One of the choice users have is to
+> migrate to *CrashPlan PRO* (aka *CrashPlan for Small Business*).
+>
+> To do so, the [jlesage/crashplan-pro] Docker container can be used.  Make sure
+> to read the related [documentation] for a smooth transition.
+      </important>
       <section>
         <title level="2">Networking</title>
         <content>
@@ -142,6 +150,18 @@ the listening port is changed to `12345`, the option `-p 12345:12345` needs to
 be added to the `docker run` command.
         </content>
       </section>
+      <link>
+        <name>being decommissioned</name>
+        <url>https://www.crashplan.com/en-us/consumer/nextsteps/</url>
+      </link>
+      <link>
+        <name>jlesage/crashplan-pro</name>
+        <url>https://hub.docker.com/r/jlesage/crashplan-pro/</url>
+      </link>
+      <link>
+        <name>documentation</name>
+        <url>https://github.com/jlesage/docker-crashplan-pro/blob/master/README.md#migrating-from-crashplan-for-home</url>
+      </link>
       <link>
         <name>Docker container networking</name>
         <url>https://docs.docker.com/engine/userguide/networking/</url>

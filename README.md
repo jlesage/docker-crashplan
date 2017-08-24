@@ -5,6 +5,13 @@ This is a Docker container for CrashPlan.
 
 The GUI of the application is accessed through a modern web browser (no installation or configuration needed on client side) or via any VNC client.
 
+> **_IMPORTANT_**: *CrashPlan for Home*, the version implemented by this
+> container, is [being decommissioned].  One of the choice users have is to
+> migrate to *CrashPlan PRO* (aka *CrashPlan for Small Business*).
+>
+> To do so, the [jlesage/crashplan-pro] Docker container can be used.  Make sure
+> to read the related [documentation] for a smooth transition.
+
 ---
 
 [![CrashPlan logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/crashplan-icon.png&w=200)](https://www.crashplan.com)[![CrashPlan](https://dummyimage.com/400x110/ffffff/575757&text=CrashPlan)](https://www.crashplan.com)
@@ -260,6 +267,9 @@ the listening port is changed to `12345`, the option `-p 12345:12345` needs to
 be added to the `docker run` command.
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+[being decommissioned]: https://www.crashplan.com/en-us/consumer/nextsteps/
+[jlesage/crashplan-pro]: https://hub.docker.com/r/jlesage/crashplan-pro/
+[documentation]: https://github.com/jlesage/docker-crashplan-pro/blob/master/README.md#migrating-from-crashplan-for-home
 [Docker container networking]: https://docs.docker.com/engine/userguide/networking/
 [official documentation]: https://support.code42.com/CrashPlan/4/Configuring/Replacing_Your_Device
 [solution provided by CrashPlan]: https://support.code42.com/CrashPlan/4/Troubleshooting/Adjusting_CrashPlan_Settings_For_Memory_Usage_With_Large_Backups
