@@ -186,6 +186,12 @@ be added to the `docker run` command.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.4.1</version>
+        <date>2017-10-08</date>
+        <change>Now using baseimage v3.0.1, which brings the following changes:</change>
+        <change level="2">Fixed nginx config for systems without IPV6 support.</change>
+      </release>
+      <release>
         <version>1.4.0</version>
         <date>2017-10-08</date>
         <change>Now using baseimage v3.0.0, which brings the following changes:</change>
