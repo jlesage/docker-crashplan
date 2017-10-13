@@ -303,3 +303,10 @@ be added to the `docker run` command.
 [solution provided by CrashPlan]: https://support.code42.com/CrashPlan/4/Troubleshooting/Adjusting_CrashPlan_Settings_For_Memory_Usage_With_Large_Backups
 [Connections between computers]: https://support.code42.com/CrashPlan/4/Troubleshooting/Connections_between_computers
 [Linux real-time file watching errors]: https://support.code42.com/CrashPlan/4/Troubleshooting/Linux_real-time_file_watching_errors
+
+## Support or Contact
+
+Having troubles with the container or have questions?  Please
+[create a new issue].
+
+[open an issue]: https://github.com/jlesage/docker-crashplan/issues
