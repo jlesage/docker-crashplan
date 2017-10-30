@@ -1,0 +1,53 @@
+#!/usr/bin/with-contenv sh
+
+set -e # Exit immediately if a command exits with a non-zero status.
+set -u # Treat unset variables as an error.
+
+TITLE="$1"
+MSG="$2"
+LEVEL="$3"
+
+# Return now if not running on unRAID.
+[ "${HOST_OS:-UNSET}" = "unRAID" ] || exit 0
+
+# Return now if required files are missing (volume not mapped).
+[ -f /var/local/emhttp/var.ini ] || exit 0
+[ -f /var/local/emhttp/network.ini ] || exit 0
+
+# Fetch required information.
+CSRF_TOKEN="$(cat /var/local/emhttp/var.ini | grep "csrf_token=" | tr -d '"')"
+IP_ADDR="$(cat /var/local/emhttp/network.ini | grep "IPADDR:0=" | cut -d'=' -f2 | tr -d '"')"
+PORT="$(cat /var/local/emhttp/var.ini | grep "emhttpPort=" | cut -d"=" -f2 | tr -d '"')"
+
+# Valided fetched information.
+if [ "${CSRF_TOKEN:-UNSET}" = "UNSET" ]; then
+    echo "unRAID notification: Failed to fetch the csrf token."
+elif [ "${IP_ADDR:-UNSET}" = "UNSET" ]; then
+    echo "unRAID notification: Failed to fetch the IP address."
+fi
+
+# Convert to unRAID level.
+case "$LEVEL" in
+    INFO)  LEVEL=normal;;
+    WARNING) LEVEL=warning;;
+    ERROR)   LEVEL=alert;;
+    *)
+        echo "unRAID notification: Unknown level '$LEVEL'"
+        exit 1
+        ;;
+esac
+
+# Notify.
+set +e
+curl --fail --silent \
+     -d "cmd=add" \
+     -d "e=$APP_NAME Docker Application" \
+     -d "s=$TITLE" \
+     -d "i=$LEVEL" \
+     -d "d=$MSG" \
+     -d "$CSRF_TOKEN" "http://$IP_ADDR:${PORT:-80}/webGui/include/Notify.php"
+CURL_RC="$?"
+set -e
+[ "$CURL_RC" -eq 0 ] || echo "unRAID notification: Failed to send notification."
+
+# vim: set ft=sh :
