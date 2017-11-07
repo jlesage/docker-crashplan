@@ -5,7 +5,7 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.6-glibc-v3.1.0
+FROM jlesage/baseimage-gui:alpine-3.6-glibc-v3.1.2
 
 # Define software versions.
 ARG CRASHPLAN_VERSION=4.8.3
