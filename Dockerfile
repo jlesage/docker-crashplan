@@ -34,7 +34,9 @@ RUN \
     cat crashplan-install/CrashPlan_${CRASHPLAN_VERSION}.cpi | gzip -d -c - | cpio -i --no-preserve-owner --directory=${TARGETDIR} && \
     # Keep a copy of the default config.
     mv ${TARGETDIR}/conf ${TARGETDIR}/conf.default && \
-    # Set the manifest path (directory for inbound backups).
+    # Make sure the UI connects by default to the engine using the loopback IP address (127.0.0.1).
+    sed-patch '/<helpNovice>STILL_RUNNING<\/helpNovice>/a \\t<serviceUIConfig>\n\t\t<serviceHost>127.0.0.1<\/serviceHost>\n\t<\/serviceUIConfig>' ${TARGETDIR}/conf.default/default.service.xml && \
+     # Set the manifest path (directory for inbound backups).
     sed-patch "s|<backupConfig>|<backupConfig>\n\t\t\t<manifestPath>${MANIFESTDIR}</manifestPath>|g" ${TARGETDIR}/conf.default/default.service.xml && \
     # The configuration directory should be stored outside the container.
     ln -s /config/conf $TARGETDIR/conf && \
