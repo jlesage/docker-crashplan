@@ -186,6 +186,12 @@ be added to the `docker run` command.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.5.4</version>
+        <date>2017-12-14</date>
+        <change>Fixed an issue where the CrashPlan UI would not connect to the engine using the loopback IP.</change>
+        <change>Fixed an issue where automatic update could be partially done when running the container as root.</change>
+      </release>
+      <release>
         <version>1.5.3</version>
         <date>2017-12-12</date>
         <change>Now using baseimage v3.1.4, which brings the following changes:</change>
