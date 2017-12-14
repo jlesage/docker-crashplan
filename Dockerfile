@@ -38,6 +38,9 @@ RUN \
     sed-patch '/<helpNovice>STILL_RUNNING<\/helpNovice>/a \\t<serviceUIConfig>\n\t\t<serviceHost>127.0.0.1<\/serviceHost>\n\t<\/serviceUIConfig>' ${TARGETDIR}/conf.default/default.service.xml && \
      # Set the manifest path (directory for inbound backups).
     sed-patch "s|<backupConfig>|<backupConfig>\n\t\t\t<manifestPath>${MANIFESTDIR}</manifestPath>|g" ${TARGETDIR}/conf.default/default.service.xml && \
+    # Prevent automatic updates.
+    rm -r /usr/local/crashplan/upgrade && \
+    touch /usr/local/crashplan/upgrade && chmod 400 /usr/local/crashplan/upgrade && \
     # The configuration directory should be stored outside the container.
     ln -s /config/conf $TARGETDIR/conf && \
     # The run.conf file should be stored outside the container.
