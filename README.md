@@ -218,6 +218,11 @@ The level of security provided by the VNC password depends on two things:
 When using a VNC password, it is highly desirable to enable the secure
 connection to prevent sending the password in clear over an unencrypted channel.
 
+**ATTENTION**: Password is limited to 8 characters.  This limitation comes from
+the Remote Framebuffer Protocol [RFC](https://tools.ietf.org/html/rfc6143) (see
+section [7.2.2](https://tools.ietf.org/html/rfc6143#section-7.2.2)).  Any
+characters beyhond the limit are ignored.
+
 ## Networking
 
 By default, the container runs in bridge mode networking.  This is the best way
