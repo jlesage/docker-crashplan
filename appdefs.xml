@@ -186,6 +186,11 @@ be added to the `docker run` command.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.5.6</version>
+        <date>2018-01-11</date>
+        <change>Fixed issue where libraries were not found.</change>
+      </release>
+      <release>
         <version>1.5.5</version>
         <date>2018-01-11</date>
         <change>Now using baseimage v3.2.2, which brings the following changes (since last used version):</change>
