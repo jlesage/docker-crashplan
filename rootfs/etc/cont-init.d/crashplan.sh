@@ -59,9 +59,18 @@ do
     [ -f "$LOGFILE" ] || touch "$LOGFILE"
 done
 
-# Adjust ownership of /config.
-chown -R $USER_ID:$GROUP_ID /config
-# Adjust ownership of /backupArchives.
-chown -R $USER_ID:$GROUP_ID /backupArchives
+# Take ownership of the config directory content.
+chown -R $USER_ID:$GROUP_ID /config/*
+
+# Take ownership of the backupArchives directory.
+if ! chown $USER_ID:$GROUP_ID /backupArchives; then
+    # Failed to take ownership of /backupArchives.  This could happen when,
+    # for example, the folder is mapped to a network share.
+    # Continue if we have write permission, else fail.
+    if s6-setuidgid $USER_ID:$GROUP_ID [ ! -w /backupArchives ]; then
+        log "ERROR: Failed to take ownership and no write permission on /backupArchives."
+        exit 1
+    fi
+fi
 
 # vim: set ft=sh :
