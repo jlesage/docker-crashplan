@@ -186,6 +186,11 @@ be added to the `docker run` command.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.5.7</version>
+        <date>2018-01-12</date>
+        <change>Upgraded CrashPlan to version 4.8.4.</change>
+      </release>
+      <release>
         <version>1.5.6</version>
         <date>2018-01-11</date>
         <change>Fixed issue where libraries were not found.</change>
