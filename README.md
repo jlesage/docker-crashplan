@@ -26,6 +26,9 @@ get all three, from the same easy application.
 
 ## Quick Start
 
+**NOTE**: The Docker command provided in this quick start is given as an example
+and parameters should be adjusted to your need.
+
 Launch the CrashPlan docker container with the following command:
 ```
 docker run -d \
