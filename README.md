@@ -1,5 +1,5 @@
 # Docker container for CrashPlan
-[![Docker Automated build](https://img.shields.io/docker/automated/jlesage/crashplan.svg)](https://hub.docker.com/r/jlesage/crashplan/) [![](https://images.microbadger.com/badges/image/jlesage/crashplan.svg)](http://microbadger.com/#/images/jlesage/crashplan "Get your own image badge on microbadger.com") [![Build Status](https://travis-ci.org/jlesage/docker-crashplan.svg?branch=master)](https://travis-ci.org/jlesage/docker-crashplan) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage)
+[![Docker Automated build](https://img.shields.io/docker/automated/jlesage/crashplan.svg)](https://hub.docker.com/r/jlesage/crashplan/) [![Docker Image](https://images.microbadger.com/badges/image/jlesage/crashplan.svg)](http://microbadger.com/#/images/jlesage/crashplan) [![Build Status](https://travis-ci.org/jlesage/docker-crashplan.svg?branch=master)](https://travis-ci.org/jlesage/docker-crashplan) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-crashplan.svg)](https://github.com/jlesage/docker-crashplan/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage)
 
 This is a Docker container for CrashPlan.
 
@@ -113,6 +113,7 @@ container cannot be changed, but you are free to use any port on the host side.
 | 4242 | Optional | Port used by CrashPlan for computer-to-computer backups.  No need to expose this port if this feature is not used.  **NOTE**: Because this port is reported by CrashPlan to other devices signed to your account, the port mapped on the host side *must* be the same (i.e. 4242). |
 
 ## Docker Compose File
+
 Here is an example of a `docker-compose.yml` file that can be used with
 [Docker Compose](https://docs.docker.com/compose/overview/).
 
