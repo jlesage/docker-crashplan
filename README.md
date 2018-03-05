@@ -47,6 +47,7 @@ get all three, from the same easy application.
          * [Crashes / Maximum Amount of Allocated Memory](#crashes--maximum-amount-of-allocated-memory)
          * [Inotify's Watch Limit](#inotifys-watch-limit)
          * [Connection Between Computers](#connection-between-computers)
+         * [Command-Line Interface Disappears After Running Command](#command-line-interface-disappears-after-running-command)
       * [Reverse Proxy](#reverse-proxy)
          * [Routing Based on Hostname](#routing-based-on-hostname)
          * [Routing Based on URL Path](#routing-based-on-url-path)
@@ -393,6 +394,23 @@ also add the proper port mapping when running the container.  For example, if
 the listening port is changed to `12345`, the option `-p 12345:12345` needs to
 be added to the `docker run` command.
 
+### Command-Line Interface Disappears After Running Command
+
+After entering a command in the command-line interface, the window immediately
+disappear.  This is a known issue, but it should be noted that the requested
+command is still executed as requested.
+
+If the result and/or output of the command is needed, consult the log file
+located at `log/service.log.0` in the config directory of container.  Here is
+an example of log messages produced when running the `version` command:
+
+```
+[03.05.18 06:03:17.179 INFO  MQ-UI-1      backup42.service.ui.UIController] UserActionRequest: CommandMessage[version]
+[03.05.18 06:03:17.179 INFO  MQ-UI-1      kup42.common.command.CliExecutor] RUN COMMAND: version  >  CommandResult@1111973668[ version, success=true, result=4.8.4 - 1436674800484 (2015-07-12T04:20:00:484+0000) - Build: 15 ]
+```
+
+The list of [available commands] can be consulted online.
+
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [being decommissioned]: https://www.crashplan.com/en-us/consumer/nextsteps/
 [jlesage/crashplan-pro]: https://hub.docker.com/r/jlesage/crashplan-pro/
@@ -402,6 +420,7 @@ be added to the `docker run` command.
 [solution provided by CrashPlan]: https://support.code42.com/CrashPlan/4/Troubleshooting/Adjusting_CrashPlan_Settings_For_Memory_Usage_With_Large_Backups
 [Connections between computers]: https://support.code42.com/CrashPlan/4/Troubleshooting/Connections_between_computers
 [Linux real-time file watching errors]: https://support.code42.com/CrashPlan/4/Troubleshooting/Linux_real-time_file_watching_errors
+[available commands]: https://support.code42.com/CrashPlan/4/Troubleshooting/Code42_commands
 
 ## Reverse Proxy
 

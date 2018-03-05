@@ -150,6 +150,25 @@ the listening port is changed to `12345`, the option `-p 12345:12345` needs to
 be added to the `docker run` command.
         </content>
       </section>
+      <section>
+        <title level="3">Command-Line Interface Disappears After Running Command</title>
+        <content>
+After entering a command in the command-line interface, the window immediately
+disappear.  This is a known issue, but it should be noted that the requested
+command is still executed as requested.
+
+If the result and/or output of the command is needed, consult the log file
+located at `log/service.log.0` in the config directory of container.  Here is
+an example of log messages produced when running the `version` command:
+
+```
+[03.05.18 06:03:17.179 INFO  MQ-UI-1      backup42.service.ui.UIController] UserActionRequest: CommandMessage[version]
+[03.05.18 06:03:17.179 INFO  MQ-UI-1      kup42.common.command.CliExecutor] RUN COMMAND: version  >  CommandResult@1111973668[ version, success=true, result=4.8.4 - 1436674800484 (2015-07-12T04:20:00:484+0000) - Build: 15 ]
+```
+
+The list of [available commands] can be consulted online.
+        </content>
+      </section>
       <link>
         <name>being decommissioned</name>
         <url>https://www.crashplan.com/en-us/consumer/nextsteps/</url>
@@ -181,6 +200,10 @@ be added to the `docker run` command.
       <link>
         <name>Linux real-time file watching errors</name>
         <url>https://support.code42.com/CrashPlan/4/Troubleshooting/Linux_real-time_file_watching_errors</url>
+      </link>
+      <link>
+        <name>available commands</name>
+        <url>https://support.code42.com/CrashPlan/4/Troubleshooting/Code42_commands</url>
       </link>
     </documentation>
     <!-- Changelog of the application. -->
