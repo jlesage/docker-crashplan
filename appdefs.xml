@@ -226,6 +226,11 @@ restarts.  At this point, password of the account is required to continue.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.6.4</version>
+        <date>2018-03-05</date>
+        <change>Use the correct variable to keep the application running.</change>
+      </release>
+      <release>
         <version>1.6.3</version>
         <date>2018-03-02</date>
         <change>Now using baseimage v3.3.4, which brings the following changes (since last used version):</change>
