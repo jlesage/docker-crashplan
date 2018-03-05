@@ -48,6 +48,7 @@ get all three, from the same easy application.
          * [Inotify's Watch Limit](#inotifys-watch-limit)
          * [Connection Between Computers](#connection-between-computers)
          * [Command-Line Interface Disappears After Running Command](#command-line-interface-disappears-after-running-command)
+         * [Forcing Sign-In When Access To CrashPlan Requires Password](#forcing-sign-in-when-access-to-crashplan-requires-password)
       * [Reverse Proxy](#reverse-proxy)
          * [Routing Based on Hostname](#routing-based-on-hostname)
          * [Routing Based on URL Path](#routing-based-on-url-path)
@@ -410,6 +411,21 @@ an example of log messages produced when running the `version` command:
 ```
 
 The list of [available commands] can be consulted online.
+
+### Forcing Sign-In When Access To CrashPlan Requires Password
+
+CrashPlan can be configured to require a password to access the application.
+Enabling this option ensures no one else can make changes to settings or
+restore files without the account password.
+
+Sign-in is needed when the application is started.  Since the application is
+always running in this container, a manual step is required to replace the
+action of closing the application:
+  1. Double click on the CrashPlan logo to open the command-line interface.
+  2. Type `exit` and then press the Enter key.
+
+After a few seconds, the CrashPlan application closes and then automatically
+restarts.  At this point, password of the account is required to continue.
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [being decommissioned]: https://www.crashplan.com/en-us/consumer/nextsteps/
