@@ -53,6 +53,7 @@ get all three, from the same easy application.
          * [Connection Between Computers](#connection-between-computers)
          * [Command-Line Interface Disappears After Running Command](#command-line-interface-disappears-after-running-command)
          * [Forcing Sign-In When Access To CrashPlan Requires Password](#forcing-sign-in-when-access-to-crashplan-requires-password)
+         * [Upgrade Failed Error Message](#upgrade-failed-error-message)
       * [Support or Contact](#support-or-contact)
 
 ## Quick Start
@@ -535,6 +536,15 @@ action of closing the application:
 
 After a few seconds, the CrashPlan application closes and then automatically
 restarts.  At this point, password of the account is required to continue.
+
+### Upgrade Failed Error Message
+
+Because the CrashPlan's self-upgrade feature is disabled in this container, an
+error message about failed upgrade can be seen when a new CrashPlan version is
+released.
+
+To fix this, [updating the container's image](#docker-image-update) to the
+latest version will also bring the latest version of CrashPlan.
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [being decommissioned]: https://www.crashplan.com/en-us/consumer/nextsteps/

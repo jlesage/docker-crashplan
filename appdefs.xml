@@ -186,6 +186,17 @@ After a few seconds, the CrashPlan application closes and then automatically
 restarts.  At this point, password of the account is required to continue.
         </content>
       </section>
+      <section>
+        <title level="3">Upgrade Failed Error Message</title>
+        <content>
+Because the CrashPlan's self-upgrade feature is disabled in this container, an
+error message about failed upgrade can be seen when a new CrashPlan version is
+released.
+
+To fix this, [updating the container's image](#docker-image-update) to the
+latest version will also bring the latest version of CrashPlan.
+        </content>
+      </section>
       <link>
         <name>being decommissioned</name>
         <url>https://www.crashplan.com/en-us/consumer/nextsteps/</url>
