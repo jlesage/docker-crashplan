@@ -52,6 +52,7 @@ get all three, from the same easy application.
       * [Troubleshooting](#troubleshooting)
          * [Crashes / Maximum Amount of Allocated Memory](#crashes--maximum-amount-of-allocated-memory)
          * [Inotify's Watch Limit](#inotifys-watch-limit)
+            * [Synology](#synology-1)
          * [Connection Between Computers](#connection-between-computers)
          * [Command-Line Interface Disappears After Running Command](#command-line-interface-disappears-after-running-command)
          * [Forcing Sign-In When Access To CrashPlan Requires Password](#forcing-sign-in-when-access-to-crashplan-requires-password)
@@ -518,10 +519,21 @@ maximum amount of memory CrashPlan is allowed to use. This can be done by:
 ### Inotify's Watch Limit
 
 If CrashPlan exceeds inotify's max watch limit, real-time file watching cannot
-work properly and the inotify watch limit needs to be increased on the **host**.
+work properly and the inotify watch limit needs to be increased on the **host**,
+not the container.
 
 For more details, see the CrashPlan's [Linux real-time file watching errors]
 article.
+
+#### Synology
+
+On Synology NAS, the instuctions provided by the article mentioned in the
+previous section apply, except that the inotify's max watch limit must be set in
+`/etc.defaults/sysctl.conf` (instead of `/etc/sysctl.conf`) to make the setting
+permanent.
+
+**NOTE**: After an upgrade of the DSM software, verify that the content of the
+file has not been overwritten.
 
 ### Connection Between Computers
 
