@@ -250,6 +250,11 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.6.5</version>
+        <date>2018-04-23</date>
+        <change>Fixed issue where supplementary groups were not applied to the CrashPlan engine.</change>
+      </release>
+      <release>
         <version>1.6.4</version>
         <date>2018-03-05</date>
         <change>Use the correct variable to keep the application running.</change>
