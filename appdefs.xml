@@ -21,7 +21,7 @@ get all three, from the same easy application.
       <url>https://www.crashplan.com</url>
     </project>
     <unraid>
-      <support_url>https://forums.lime-technology.com/topic/57756-support-crashplan/</support_url>
+      <support_url>https://forums.unraid.net/topic/57756-support-crashplan/</support_url>
       <category>Backup:</category>
       <extra_description>
     [span style='color: red;'][b]Warning:[/b][/span] Make sure to read the
