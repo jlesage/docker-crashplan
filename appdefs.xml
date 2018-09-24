@@ -250,6 +250,11 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.7.1</version>
+        <date>2018-09-24</date>
+        <change>Fixed issue where CrashPlan UI would not start.</change>
+      </release>
+      <release>
         <version>1.7.0</version>
         <date>2018-09-19</date>
         <change>Now using baseimage v3.5.1, which brings the following changes (since last used version):</change>
