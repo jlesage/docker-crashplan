@@ -43,10 +43,10 @@ get all three, from the same easy application.
       * [Security](#security)
          * [Certificates](#certificates)
          * [VNC Password](#vnc-password)
-      * [Shell Access](#shell-access)
       * [Reverse Proxy](#reverse-proxy)
          * [Routing Based on Hostname](#routing-based-on-hostname)
          * [Routing Based on URL Path](#routing-based-on-url-path)
+      * [Shell Access](#shell-access)
       * [Networking](#networking)
       * [Taking Over Existing Backup](#taking-over-existing-backup)
       * [Troubleshooting](#troubleshooting)
@@ -334,17 +334,6 @@ the Remote Framebuffer Protocol [RFC](https://tools.ietf.org/html/rfc6143) (see
 section [7.2.2](https://tools.ietf.org/html/rfc6143#section-7.2.2)).  Any
 characters beyhond the limit are ignored.
 
-## Shell Access
-
-To get shell access to a the running container, execute the following command:
-
-```
-docker exec -ti CONTAINER sh
-```
-
-Where `CONTAINER` is the ID or the name of the container used during its
-creation (e.g. `crashplan-pro`).
-
 ## Reverse Proxy
 
 The following sections contains NGINX configuration that need to be added in
@@ -441,6 +430,16 @@ server {
 }
 
 ```
+## Shell Access
+
+To get shell access to a the running container, execute the following command:
+
+```
+docker exec -ti CONTAINER sh
+```
+
+Where `CONTAINER` is the ID or the name of the container used during its
+creation (e.g. `crashplan-pro`).
 
 ## Networking
 
