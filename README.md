@@ -185,6 +185,7 @@ ports are part of the example.
 version: '3'
 services:
   crashplan:
+    image: jlesage/crashplan
     build: .
     ports:
       - "5800:5800"
