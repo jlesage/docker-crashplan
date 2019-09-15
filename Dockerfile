@@ -4,6 +4,8 @@
 # https://github.com/jlesage/docker-crashplan
 #
 
+ARG DOCKER_IMAGE_VERSION=unknown
+
 # Pull base image.
 FROM jlesage/baseimage-gui:alpine-3.8-glibc-v3.5.2
 
@@ -113,6 +115,6 @@ EXPOSE 4242 4243
 LABEL \
       org.label-schema.name="crashplan" \
       org.label-schema.description="Docker container for CrashPlan" \
-      org.label-schema.version="unknown" \
+      org.label-schema.version="$DOCKER_IMAGE_VERSION" \
       org.label-schema.vcs-url="https://github.com/jlesage/docker-crashplan" \
       org.label-schema.schema-version="1.0"
