@@ -3,7 +3,7 @@
 
 This is a Docker container for [CrashPlan](https://www.crashplan.com).
 
-The GUI of the application is accessed through a modern web browser (no installation or configuration needed on client side) or via any VNC client.
+The GUI of the application is accessed through a modern web browser (no installation or configuration needed on the client side) or via any VNC client.
 
 > **_IMPORTANT_**: *CrashPlan for Home*, the version implemented by this
 > container, is [being decommissioned].  One of the choice users have is to
