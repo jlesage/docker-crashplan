@@ -1,5 +1,5 @@
 # Docker container for CrashPlan
-[![Docker Image Size](https://img.shields.io/microbadger/image-size/jlesage/crashplan)](http://microbadger.com/#/images/jlesage/crashplan) [![Build Status](https://drone.le-sage.com/api/badges/jlesage/docker-crashplan/status.svg)](https://drone.le-sage.com/jlesage/docker-crashplan) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-crashplan.svg)](https://github.com/jlesage/docker-crashplan/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
+[![Docker Image Size](https://img.shields.io/docker/image-size/jlesage/crashplan/latest)](https://hub.docker.com/r/jlesage/crashplan/tags) [![Build Status](https://drone.le-sage.com/api/badges/jlesage/docker-crashplan/status.svg)](https://drone.le-sage.com/jlesage/docker-crashplan) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-crashplan.svg)](https://github.com/jlesage/docker-crashplan/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
 
 This is a Docker container for [CrashPlan](https://www.crashplan.com).
 
