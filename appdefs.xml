@@ -511,20 +511,6 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Volumes -->
     <volumes>
       <volume>
-        <container_path>/flash</container_path>
-        <host_path_example/>
-        <description/>
-        <permissions>ro</permissions>
-        <unraid_template>
-          <title>Flash</title>
-          <description>This is where data on your unRAID flash device is located.  Useful to backup your unRAID configuration.[br]Container path: /flash</description>
-          <default>/boot</default>
-          <display>always</display>
-          <required>false</required>
-          <mask>false</mask>
-        </unraid_template>
-      </volume>
-      <volume>
         <container_path>/backupArchives</container_path>
         <host_path_example/>
         <description>This is where inbound backups are stored.</description>
