@@ -24,10 +24,10 @@ get all three, from the same easy application.
       <support_url>https://forums.unraid.net/topic/57756-support-crashplan/</support_url>
       <category>Backup:</category>
       <extra_description>
-    [span style='color: red;'][b]Warning:[/b][/span] Make sure to read the
-    [i]Taking Over Existing Backup[/i] section from the documentation if you are
-    installing this container to replace another CrashPlan installation (from
-    Windows, Linux, Mac or even another Docker container).
+**Warning**: Make sure to read the *Taking Over Existing Backup* section from
+the documentation if you are installing this container to replace another
+CrashPlan installation (from Windows, Linux, Mac or even another Docker
+container).
       </extra_description>
     </unraid>
     <container>
